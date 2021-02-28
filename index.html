@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Predict Football Outcomes</title>
+    </head>
+    <body onload="loadTeamData()">
+        <h1>Predict Football Outcomes</h1>
+        <p>Select Two Teams</p>
+        <form>
+            <select id="selectTeam">
+            </select>
+            <span>VS</span>
+            <select id="selectTeamOne">
+            </select>
+            <button id="form">Submit</button>
+        </form>
+        <script>
+            var teams={
+                epl:['Arsenal','Southampton','Leeds','Newcastle','Leicester','Everton',
+                    'Chelsea', 'Wolves','West Brom','Fulham','Crystal Palace','West Ham',
+                    'Tottenham','Brighton','Liverpool','Burnley','Sheffield United',
+                    'Man City','Man United','Aston Villa']
+            }
+
+            var x = document.getElementById('selectTeam');
+            var y = document.getElementById('selectTeamOne');
+
+            function loadTeamData(){
+                handleSelect(x);
+                handleSelect(y);
+            }
+
+            function handleSelect(a){
+                    teams.epl.forEach(element => {
+                        let option = new Option(element);
+                        a.appendChild(option);
+                    });
+            };
+        </script>    
+    </body>
+</html>
