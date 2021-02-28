@@ -2,14 +2,26 @@
 <html>
     <head>
         <title>Predict Football Outcomes</title>
+        <style>
+            h1{
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin-top:5%;
+            }
+            p,span,input>option,button{
+                font-family:sans-serif;
+            }
+            *{
+                text-align: center;;
+            }
+        </style>
     </head>
     <body onload="loadTeamData()">
         <h1>Predict Football Outcomes</h1>
-        <p>Select Two Teams</p>
+        <p>Select Two Clubs</p>
         <form>
             <select id="selectTeam">
             </select>
-            <span>VS</span>
+            <span>Vs</span>
             <select id="selectTeamOne">
             </select>
             <button id="form">Submit</button>
