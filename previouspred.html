@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Predict Football Outcomes</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+        <style>
+            h1{
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin-top:5%;
+            }
+            p,span,input>option,button{
+                font-family:sans-serif;
+            }
+            *{
+                text-align: center;
+                overflow-x: hidden;
+            }
+        </style>
+    </head>
+    <body onload="loadPastPred()">
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">
+                <img src="/Folder/FYPLogo.svg" alt="" width="60" height="48" class="d-inline-block align-text-top">
+                </a>
+                <span class="navbar-text text-light" style="font-size: 1.4em; color:'white'">
+                    <a href="index.html" style="text-decoration: none;">Football Outcome Prediction System</a>
+                </span>
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                      <a class="nav-link active text-light" aria-current="page" href="previouspred.html">View Past Predictions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-light" aria-current="page" href="about.html">About</a>
+                      </li>
+                </ul>
+            </div>
+        </nav>
+        <div class=".container" style="height:90vh;padding-top: 10%;background-size: cover;background-image: url(/Folder/FootballField.jpg);">
+            <div class="row">
+                <div class="col-12">
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="card col-8 justify-content-center"  style="padding-top:10px;" id="DisplayResults">
+                    <h3  style="overflow-y:hidden" class=" p-5">Predictions, Home Team & Away Team:</h3>
+                </div>
+            </div>
+        </div>
+        <script>
+            fpred = "";
+            function handleWins(a){
+                if(a=="H"){
+                    return "Home Team Is Predicted to Win"
+                }
+                else if (a=="A"){
+                    return "Away Team Is Predicted to Win"
+                }
+                else if (a=="D"){
+                    return "The Match is Predicted to End In A Draw"
+                }
+            }
+
+            async function loadPastPred(){
+                    const Url = 'http://efbaffaa330e.ngrok.io/pastpredictions';
+
+                    fetch(Url)
+                    .then(data=>{return data.json()})
+                    .then(res=>{
+                        fpred = res.prediction
+                        index = res.matches.length-1
+                        addContent = document.getElementById('DisplayResults')
+                        //console.log(index)
+                        
+                        for(i = 0; i<index; i++){
+                            console.log(res.matches[index].hometeam)
+                            
+                            var div = document.createElement('div');
+                            div.className = "card"
+
+                            var p = document.createElement('p');
+                            p.id = "displayPrediction"
+                            p.style="font-size:1.2em"
+
+                            prediction = res.matches[i].prediction
+                            
+                            if(prediction == "H"){
+                                prediction= "Home Win"
+                            }
+                            else if(prediction =="A"){
+                                prediction = "Away Win"
+                            }
+                            else if(prediction =="D"){
+                                prediction = "Draw"
+                            }
+
+                            p.innerText = res.matches[i].hometeam+" vs "+res.matches[i].awayteam+":"+prediction
+
+                            addContent.appendChild(div)
+                            div.appendChild(p)
+                        }
+                    })
+                    .catch(error=>console.log(error))   
+                }  
+        </script>    
+    </body>
+</html>
